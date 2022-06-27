@@ -9,6 +9,7 @@ import { TIMESTEP } from './constants';
 import { WeatherIntervalsValues, WeatherResp, WeatherTimelines } from './models';
 import ConditionScaleLegend from './ui/ConditionScaleLegend';
 import CurrentWeatherStat from './ui/CurrentWeatherStat';
+import ScreenWidthToast from './ui/ScreenWidthToast';
 import WeatherChart from './ui/WeatherChart';
 import WeatherPreference from './ui/WeatherPreference';
 
@@ -53,9 +54,9 @@ function App() {
   }, []);
 
   console.log('currentWeather.current', currentWeather);
-
   return (
     <div className="App">
+      <ScreenWidthToast />
       {/*<header className="App-header">*/}
       {/*  <p>San Francisco</p>*/}
       {/*</header>*/}
@@ -66,7 +67,7 @@ function App() {
       <hr />
       <WeatherPreference />
       <hr />
-      <WeatherChart weatherTimeLine={hourTimestep} />
+      <WeatherChart weatherTimeLine={hourTimestep} currentWeather={currentWeather} />
       <div style={{ margin: '5rem' }} />
     </div>
   );
