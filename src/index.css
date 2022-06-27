@@ -85,20 +85,40 @@ code {
   color: var(--green);
 }
 
+.has-low-bg {
+  background-color: var(--green);
+}
+
 .has-moderate-color {
   color: var(--brand-success);
+}
+
+.has-moderate-bg {
+  background-color: var(--brand-success);
 }
 
 .has-high-color {
   color: var(--y50-gold);
 }
 
+.has-high-bg {
+  background-color: var(--y50-gold);
+}
+
 .has-very-high-color {
-  color: var(--orange-dark);
+  color: var(--brand-danger);
+}
+
+.has-very-high-bg {
+  background-color: var(--brand-danger);
 }
 
 .has-extreme-color {
-  color: var(--brand-danger);
+  color: var(--orange-dark);
+}
+
+.has-extreme-bg {
+  background-color: var(--orange-dark);
 }
 
 .mr-3 {

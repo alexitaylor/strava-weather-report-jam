@@ -7,7 +7,9 @@ import styled from 'styled-components';
 import { getTimeline } from './api';
 import { TIMESTEP } from './constants';
 import { WeatherIntervalsValues, WeatherResp, WeatherTimelines } from './models';
+import ConditionScaleLegend from './ui/ConditionScaleLegend';
 import CurrentWeatherStat from './ui/CurrentWeatherStat';
+import WeatherChart from './ui/WeatherChart';
 import WeatherPreference from './ui/WeatherPreference';
 
 const Title = styled.h1`
@@ -54,15 +56,18 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <p>San Francisco</p>
-        <CurrentWeatherStat currentWeather={currentWeather} dayTimestep={dayTimestep} />
-        <hr />
-        <WeatherPreference />
-        <hr />
-        {/*<WeatherPreference />*/}
-        {/*<Title>Hello World!</Title>*/}
-      </header>
+      {/*<header className="App-header">*/}
+      {/*  <p>San Francisco</p>*/}
+      {/*</header>*/}
+      <h1>San Francisco</h1>
+      <CurrentWeatherStat currentWeather={currentWeather} dayTimestep={dayTimestep} />
+      <hr />
+      <ConditionScaleLegend />
+      <hr />
+      <WeatherPreference />
+      <hr />
+      <WeatherChart weatherTimeLine={hourTimestep} />
+      <div style={{ margin: '5rem' }} />
     </div>
   );
 }

@@ -2,10 +2,10 @@ import classnames from 'classnames';
 import { differenceInHours, differenceInMinutes, format } from 'date-fns';
 import { useEffect, useState } from 'react';
 
-import { UNITS } from '../constants';
+import { DATE_FORMAT, UNITS } from '../constants';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { WeatherIntervalsValues, WeatherTimelines } from '../models';
-import { getCompassDirection, getWeatherCodes } from '../utils';
+import { getCompassDirection, getWeatherCodes, isDefined } from '../utils';
 import Button from './Button/Button';
 import ButtonGroup from './Button/ButtonGroup';
 import CurrentWeatherStatStyled from './CurrentWeatherStat.styled';
@@ -43,9 +43,9 @@ const getWeatherStats = (stats?: WeatherIntervalsValues) => {
     weatherCodeDay: getWeatherCodes('weatherCodeDay', stats?.weatherCodeDay),
     precipitationProbability: `${stats?.precipitationProbability ?? '--'}%`,
     rainAccumulation: `${stats?.rainAccumulation ?? '--'} in`,
-    sunriseTime: stats?.sunriseTime ? format(new Date(stats.sunriseTime), 'h:mm aaa') : '--',
+    sunriseTime: stats?.sunriseTime ? format(new Date(stats.sunriseTime), DATE_FORMAT.HOUR_MIN) : '--',
     sunsetTime: stats?.sunsetTime
-      ? `${format(new Date(stats.sunsetTime), 'h:mm aaa')} (${getTimeToSunset(stats.sunsetTime)})`
+      ? `${format(new Date(stats.sunsetTime), DATE_FORMAT.HOUR_MIN)} (${getTimeToSunset(stats.sunsetTime)})`
       : '--',
     windSpeed: `${stats?.windSpeed ?? '--'}mph`,
     windDirection: stats?.windDirection ? `${getCompassDirection(stats.windDirection)} (${stats.windDirection})` : '--',
@@ -64,14 +64,17 @@ const getUvIndexStyle = (uvIndex: string) =>
   }[uvIndex]);
 
 const getStatStyle = ({ stat, low, high }: { stat?: number; low?: number; high?: number }): string => {
-  if (!stat || !low || !high) {
+  if (!isDefined(stat) || !isDefined(low) || !isDefined(high)) {
     return '';
   }
 
+  // @ts-ignore
   if (stat < low) {
-    return 'has-high-color';
+    return 'has-low-color';
+    // @ts-ignore
   } else if (stat >= low && stat <= high) {
     return 'has-moderate-color';
+    // @ts-ignore
   } else if (stat > high) {
     return 'has-extreme-color';
   } else {
@@ -116,13 +119,15 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
     }
   }, [currentWeatherProp]);
 
+  console.log('currentWeather?.windSpeed', currentWeather?.windSpeed);
+  console.log('userSe', userSettings);
   return (
     <CurrentWeatherStatStyled>
       {/*Right Side */}
       <div className="current-weather-container">
         <div className="date-location">
-          <span className="day">{format(new Date(currentDate), 'eeee')}</span>
-          <span className="date">{format(new Date(currentDate), 'MMMM do, yyyy')}</span>
+          <span className="day">{format(new Date(currentDate), DATE_FORMAT.DAY_OF_WEEK)}</span>
+          <span className="date">{format(new Date(currentDate), DATE_FORMAT.DEFAULT)}</span>
           <span className="location">San Francisco</span>
         </div>
         <div className="current-weather-stats">
@@ -231,7 +236,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
                 weatherCode={values?.weatherCodeDay}
                 weatherDescription={getWeatherCodes('weatherCodeDay', values?.weatherCodeDay)}
               />
-              <span className="forecast-date">{format(new Date(startTime), 'eee')}</span>
+              <span className="forecast-date">{format(new Date(startTime), DATE_FORMAT.DAY_OF_WEEK)}</span>
               <span className="forecast-temperature">{Math.round(values?.temperature)}</span>
             </Button>
           ))}

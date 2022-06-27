@@ -36,3 +36,12 @@ export const getCompassDirection = (bearing: number) => {
       return 'N';
   }
 };
+
+/**
+ * @function isDefined
+ * @description returns whether or not a value is defined (not null or undefined)
+ * @param {unknown} value
+ * @return {boolean}
+ */
+
+export const isDefined = (value: unknown): boolean => typeof value !== 'undefined' && value !== null;

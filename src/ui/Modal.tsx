@@ -1,6 +1,6 @@
 import '@reach/dialog/styles.css';
 
-import { Dialog, DialogContent, DialogOverlay } from '@reach/dialog';
+import { DialogContent, DialogOverlay } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
 import { ReactNode, useState } from 'react';
 
