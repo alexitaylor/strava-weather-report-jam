@@ -11,21 +11,6 @@ const WeatherChartStyled = styled.div`
   width: calc(100vw - 3rem);
   height: 600px;
   margin: 2rem 1rem;
-
-  > .graph-wrapper {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    overflow-x: scroll;
-    overflow-y: hidden;
-  }
-
-  .graph-wrapper > .y-axis-wrapper {
-    background: white;
-    position: sticky;
-    left: 0;
-    z-index: 3;
-  }
 `;
 
 const parseTimeLineData = (intervals: WeatherIntervals[]) => {
@@ -76,9 +61,6 @@ const WeatherChart = ({ weatherTimeLine }: Props) => {
     <WeatherChartStyled>
       <h3>WeatherChart</h3>
       <ResponsiveContainer width="100%" height="100%">
-        {/*<div className="graph-wrapper">*/}
-        {/*width={1000}
-          height={400}*/}
         <LineChart
           data={data}
           margin={{
@@ -98,7 +80,6 @@ const WeatherChart = ({ weatherTimeLine }: Props) => {
           <Line type="monotone" dataKey="temperature" stroke="#8884d8" strokeWidth={3} />
           <Line type="monotone" dataKey="temperatureApparent" stroke="#82ca9d" strokeWidth={3} />
         </LineChart>
-        {/*</div>*/}
       </ResponsiveContainer>
     </WeatherChartStyled>
   );

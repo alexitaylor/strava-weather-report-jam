@@ -27,7 +27,7 @@ const CurrentWeatherStatStyled = styled.div`
     justify-content: space-between;
     flex-direction: column;
     min-width: 300px;
-    width: 450px;
+    width: 500px;
     padding: 32px 32px 32px 40px;
     background: var(--n20-icicle);
     border-radius: 0 var(--spacing-large) var(--spacing-large) 0;
