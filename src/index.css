@@ -124,3 +124,43 @@ code {
 .mr-3 {
   margin-right: var(--spacing-large);
 }
+
+.has-temperature-color {
+  color: var(--brand-success);
+  border-bottom: 2px solid var(--brand-success);
+}
+
+.has-temperature-apparent-color {
+  color: var(--green);
+  border-bottom: 2px solid var(--green);
+}
+
+.has-wind-speed-color {
+  color: var(--orange);
+  border-bottom: 2px solid var(--orange);
+}
+
+.has-wind-guest-color {
+  color: var(--brand-danger);
+  border-bottom: 2px solid var(--brand-danger);
+}
+
+.has-wind-direction-color {
+  color: var(--y50-gold);
+  border-bottom: 2px solid var(--y50-gold);
+}
+
+.has-precipitation-probability-color {
+  color: var(--brand-info);
+  border-bottom: 2px solid var(--brand-info);
+}
+
+.has-rain-accumulation-color {
+  color: var(--indigo-light);
+  border-bottom: 2px solid var(--indigo-light);
+}
+
+.has-precipitation-intensity-color {
+  color: var(--cyan-dark);
+  border-bottom: 2px solid var(--cyan-dark);
+}

@@ -119,8 +119,6 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
     }
   }, [currentWeatherProp]);
 
-  console.log('currentWeather?.windSpeed', currentWeather?.windSpeed);
-  console.log('userSe', userSettings);
   return (
     <CurrentWeatherStatStyled>
       {/*Right Side */}
@@ -184,7 +182,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
               })}
             />
             <Stat
-              label={'Precipitation Amount'}
+              label={'Rain Amount'}
               value={rainAccumulation}
               className={getStatStyle({
                 stat: currentWeather?.rainAccumulation,
