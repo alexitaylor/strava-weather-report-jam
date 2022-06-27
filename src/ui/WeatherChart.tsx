@@ -141,6 +141,12 @@ const ConditionMenuStyled = styled.div`
     align-items: center;
     cursor: pointer;
     padding: 0.5rem 0;
+
+    background: none;
+    border: none;
+    font: inherit;
+    outline: inherit;
+
     &:hover {
       transform: scale(1.2);
       color: var(--text-color-tertiary);
@@ -168,7 +174,7 @@ const ConditionMenu = ({
   return (
     <ConditionMenuStyled>
       {Object.values(conditions).map(({ label, value, colorStyle, key }) => (
-        <div
+        <button
           className={classnames('label-value', {
             [colorStyle]: selectedConditions.includes(key),
           })}
@@ -177,7 +183,7 @@ const ConditionMenu = ({
         >
           <span>{label}</span>
           <span>{value}</span>
-        </div>
+        </button>
       ))}
     </ConditionMenuStyled>
   );
@@ -192,7 +198,9 @@ const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
 
   const { width } = useWindowSize();
   const brushEndIndex = useMemo(() => {
-    if (width >= 1250) {
+    if (width >= 1400) {
+      return 18;
+    } else if (width >= 1250 && width < 1400) {
       return 15;
     } else if (width >= 1000 && width < 1250) {
       return 13;

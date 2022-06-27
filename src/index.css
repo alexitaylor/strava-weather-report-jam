@@ -126,41 +126,41 @@ code {
 }
 
 .has-temperature-color {
-  color: var(--brand-success);
-  border-bottom: 2px solid var(--brand-success);
+  color: var(--brand-success) !important;
+  border-bottom: 2px solid var(--brand-success) !important;
 }
 
 .has-temperature-apparent-color {
-  color: var(--green);
-  border-bottom: 2px solid var(--green);
+  color: var(--green) !important;
+  border-bottom: 2px solid var(--green) !important;
 }
 
 .has-wind-speed-color {
-  color: var(--orange);
-  border-bottom: 2px solid var(--orange);
+  color: var(--orange) !important;
+  border-bottom: 2px solid var(--orange) !important;
 }
 
 .has-wind-guest-color {
-  color: var(--brand-danger);
-  border-bottom: 2px solid var(--brand-danger);
+  color: var(--brand-danger) !important;
+  border-bottom: 2px solid var(--brand-danger) !important;
 }
 
 .has-wind-direction-color {
-  color: var(--y50-gold);
-  border-bottom: 2px solid var(--y50-gold);
+  color: var(--y50-gold) !important;
+  border-bottom: 2px solid var(--y50-gold) !important;
 }
 
 .has-precipitation-probability-color {
-  color: var(--brand-info);
-  border-bottom: 2px solid var(--brand-info);
+  color: var(--brand-info) !important;
+  border-bottom: 2px solid var(--brand-info) !important;
 }
 
 .has-rain-accumulation-color {
-  color: var(--indigo-light);
-  border-bottom: 2px solid var(--indigo-light);
+  color: var(--indigo-light) !important;
+  border-bottom: 2px solid var(--indigo-light) !important;
 }
 
 .has-precipitation-intensity-color {
-  color: var(--cyan-dark);
-  border-bottom: 2px solid var(--cyan-dark);
+  color: var(--cyan-dark) !important;
+  border-bottom: 2px solid var(--cyan-dark) !important;
 }
