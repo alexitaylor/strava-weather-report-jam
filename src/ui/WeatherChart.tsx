@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { DATE_FORMAT } from '../constants';
 import useWindowSize from '../hooks/useWindowSize.hook';
 import { WeatherIntervals, WeatherIntervalsValues, WeatherTimelines } from '../models';
-import { getCompassDirection, isDefined } from '../utils';
+import { getCompassDirection, getUvIndexValue, isDefined } from '../utils';
 
 const WeatherChartStyled = styled.div`
   width: calc(100vw - 3rem);
@@ -33,6 +33,8 @@ const parseTimeLineData = (intervals: WeatherIntervals[]) => {
       precipitationProbability: values.precipitationProbability,
       rainAccumulation: values.rainAccumulation,
       precipitationIntensity: values.precipitationIntensity,
+      uvHealthConcern: values.uvHealthConcern,
+      uvIndex: values.uvIndex,
     };
   });
 };
@@ -92,6 +94,18 @@ const conditions = {
     colorStyle: 'has-precipitation-intensity-color',
     colorVar: 'var(--cyan-dark)',
   },
+  uvHealthConcern: {
+    key: 'uvHealthConcern',
+    label: 'UV Health Concern',
+    colorStyle: 'has-uv-health-concern-color',
+    colorVar: 'var(--y50-gold)',
+  },
+  uvIndex: {
+    key: 'uvIndex',
+    label: 'UV Index',
+    colorStyle: 'has-uv-index-color',
+    colorVar: 'var(--orange-dark)',
+  },
 };
 
 const getConditions = (current: WeatherIntervalsValues) => ({
@@ -126,6 +140,14 @@ const getConditions = (current: WeatherIntervalsValues) => ({
   precipitationIntensity: {
     ...conditions.precipitationIntensity,
     value: isDefined(current?.precipitationIntensity) ? `${current?.precipitationIntensity}in/hr` : '--',
+  },
+  uvHealthConcern: {
+    ...conditions.uvHealthConcern,
+    value: getUvIndexValue(current?.uvHealthConcern || 0),
+  },
+  uvIndex: {
+    ...conditions.uvIndex,
+    value: getUvIndexValue(current?.uvIndex || 0),
   },
 });
 

@@ -164,3 +164,13 @@ code {
   color: var(--cyan-dark) !important;
   border-bottom: 2px solid var(--cyan-dark) !important;
 }
+
+.has-uv-health-concern-color {
+  color: var(--y50-gold) !important;
+  border-bottom: 2px solid var(--y50-gold) !important;
+}
+
+.has-uv-index-color {
+  color: var(--orange-dark) !important;
+  border-bottom: 2px solid var(--orange-dark) !important;
+}

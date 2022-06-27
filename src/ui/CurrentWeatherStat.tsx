@@ -5,29 +5,13 @@ import { useEffect, useState } from 'react';
 import { DATE_FORMAT, UNITS } from '../constants';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { WeatherIntervalsValues, WeatherTimelines } from '../models';
-import { getCompassDirection, getWeatherCodes, isDefined } from '../utils';
+import { getCompassDirection, getUvIndexValue, getWeatherCodes, isDefined } from '../utils';
 import Button from './Button/Button';
 import ButtonGroup from './Button/ButtonGroup';
 import CurrentWeatherStatStyled from './CurrentWeatherStat.styled';
 import DegreeSymbol from './DegreesSymbol';
 import Stat from './Stat';
 import WeatherCodeImage from './WeatherCodeImage';
-
-const getUvIndexValue = (uvIndex: number) => {
-  if (uvIndex <= 2) {
-    return 'Low';
-  } else if (uvIndex >= 3 && uvIndex <= 5) {
-    return 'Moderate';
-  } else if (uvIndex >= 6 && uvIndex <= 7) {
-    return 'High';
-  } else if (uvIndex >= 8 && uvIndex <= 10) {
-    return 'Very High';
-  } else if (uvIndex >= 11) {
-    return 'Extreme';
-  } else {
-    return uvIndex ?? '--';
-  }
-};
 
 const getTimeToSunset = (sunsetTime: string): string => {
   const sunsetTimeDate = new Date(sunsetTime);
