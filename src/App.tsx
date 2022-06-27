@@ -34,7 +34,6 @@ function App() {
           }
           case TIMESTEP.DAY: {
             const currentDay = data.intervals.filter((item) => {
-              console.log('item.startTime', item.startTime);
               return isSameDay(new Date(), new Date(item.startTime));
             })[0]?.values;
             setCurrentWeather(currentDay);
