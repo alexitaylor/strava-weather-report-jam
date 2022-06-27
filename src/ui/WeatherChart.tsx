@@ -44,8 +44,18 @@ interface Props {
   currentWeather?: WeatherIntervalsValues;
 }
 
+interface Conidtions {
+  [key: string]: {
+    key: string;
+    label: string;
+    colorStyle: string;
+    colorVar: string;
+    value?: string;
+  };
+}
+
 // Temp, wind speed, wind direction
-const conditions = {
+const conditions: Conidtions = {
   temperature: {
     key: 'temperature',
     label: 'Temperature',
@@ -108,7 +118,7 @@ const conditions = {
   },
 };
 
-const getConditions = (current: WeatherIntervalsValues) => ({
+const getConditions = (current: WeatherIntervalsValues): Conidtions => ({
   temperature: {
     ...conditions.temperature,
     value: isDefined(current?.temperature) ? `${current?.temperature} °F` : '--',
