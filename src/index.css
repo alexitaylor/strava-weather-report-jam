@@ -1,0 +1,106 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+  'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+:root {
+  /*Colors*/
+
+  /*Oranges*/
+  --o50-strava-orange: #fc5200;
+  --o60-rust: #cc4200;
+  --o40-pumpkin: #fc6100;
+  /*Black, White & Neutrals*/
+  --white: #fff;
+  --n10-fog: #f7f7fa;
+  --n20-icicle: #f0f0f5;
+  --n30-silver: #dfdfe8;
+  --n40-steel: #b2afc0;
+  --n70-gravel: #6d6d78;
+  --n80-asphalt: #494950;
+  --n90-coal: #242428;
+  --black: #000;
+
+  --gray-darker: var(--n80-asphalt);
+  --gray-dark: var(--n70-gravel);
+  --gray: var(--n30-silver);
+  --gray-light: var(--n20-icicle);
+  --gray-lighter: var(--n10-fog);
+
+  --y50-gold: #fdc746;
+
+  /*Secondary Colors*/
+  --green: #36c597;
+
+  --orange: var(--o50-strava-orange);
+  --orange-light: var(--o40-pumpkin);
+  --orange-dark: var(--o60-rust);
+
+  --cyan: #0bfcff;
+  --cyan-light: #a2ffff;
+  --cyan-dark: #08bdbf;
+
+  --indigo: #350bff;
+  --indigo-light: #5d3cff;
+  --indigo-dark: #2808bf;
+
+  /*Branding Colors*/
+  --brand-primary: var(--orange);
+  --brand-primary-light: var(--orange-light);
+  --brand-primary-dark: var(--orange-dark);
+
+  --brand-secondary: var(--n90-coal);
+
+  /*Status colors*/
+  --brand-success: #5cb85c;
+  --brand-info: #5bc0de;
+  --brand-warning: #f0ad4e;
+  --brand-danger: #d9534f;
+
+  /*Background color for `<body>`*/
+  --body-bg: var(--n10-fog);
+
+  --text-color: var(--n90-coal);
+  --text-color-secondary: var(--n80-asphalt);
+  --text-color-tertiary: var(--n70-gravel);
+
+  /*Spacing*/
+  --spacing-xxsmall: 4px;
+  --spacing-xsmall: 6px;
+  --spacing-small: 12px;
+  --spacing-base: 16px;
+  --spacing-large: 24px;
+  --spacing-xlarge: 32px;
+  --spacing-xxlarge: 64px;
+}
+
+.has-low-color {
+  color: var(--green);
+}
+
+.has-moderate-color {
+  color: var(--brand-success);
+}
+
+.has-high-color {
+  color: var(--orange-light);
+}
+
+.has-very-high-color {
+  color: var(--orange-dark);
+}
+
+.has-extreme-color {
+  color: var(--brand-danger);
+}
+
+.mr-3 {
+  margin-right: var(--spacing-large);
+}
