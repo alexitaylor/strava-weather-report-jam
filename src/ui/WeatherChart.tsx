@@ -50,7 +50,7 @@ interface Conidtions {
     label: string;
     colorStyle: string;
     colorVar: string;
-    value?: string;
+    value?: string | number;
   };
 }
 

@@ -2,9 +2,9 @@
  * 👀 https://docs.tomorrow.io/reference/data-layers-weather-codes
  *
  * @params {'weatherCode' | 'weatherCodeFullDay' | 'weatherCodeDay' | 'weatherCodeNight'} field
- * @params {number} fieldCode
+ * @params {number | undefined} fieldCode
  * **/
-export const getWeatherCodes = (field, fieldCode) =>
+export const getWeatherCodes = (field: string, fieldCode: string): number | undefined =>
   ({
     weatherCode: {
       0: 'Unknown',
