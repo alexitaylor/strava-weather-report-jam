@@ -16,7 +16,6 @@ const WeatherChartStyled = styled.div`
 `;
 
 const parseTimeLineData = (intervals: WeatherIntervals[]) => {
-  console.log('intervals', intervals);
   return intervals?.slice(0, 500).map(({ startTime, values }, index) => {
     let startTimeFormatted = format(new Date(startTime), DATE_FORMAT.HOUR_MIN);
     startTimeFormatted =

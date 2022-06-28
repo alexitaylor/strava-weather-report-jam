@@ -4,7 +4,9 @@ import { isSameDay } from 'date-fns';
 import { useEffect, useState } from 'react';
 
 import { getTimeline } from './api';
+import CitySearch from './api/CitySearch';
 import { TIMESTEP } from './constants';
+import { useCityContext } from './contexts/CityContext';
 import { WeatherIntervalsValues, WeatherTimelines } from './models';
 import ConditionScaleLegend from './ui/ConditionScaleLegend';
 import CurrentWeatherStat from './ui/CurrentWeatherStat';
@@ -16,10 +18,15 @@ function App() {
   const [currentWeather, setCurrentWeather] = useState<WeatherIntervalsValues>();
   const [dayTimestep, setDayTimestep] = useState<WeatherTimelines>();
   const [hourTimestep, setHourTimestep] = useState<WeatherTimelines>();
+  const { city } = useCityContext();
 
   useEffect(() => {
     (async () => {
-      const { data } = await getTimeline();
+      const { data } = await getTimeline({
+        longitude: city?.longitude,
+        latitude: city?.latitude,
+        city: city?.city,
+      });
       console.log('data', data);
       // console.log('data', JSON.stringify(data));
       data?.timelines.forEach((data) => {
@@ -44,7 +51,7 @@ function App() {
         }
       });
     })();
-  }, []);
+  }, [city?.longitude, city?.latitude, city?.city]);
 
   return (
     <div className="App">
@@ -53,6 +60,7 @@ function App() {
       {/*  <p>San Francisco</p>*/}
       {/*</header>*/}
       <h1>San Francisco</h1>
+      <CitySearch />
       <CurrentWeatherStat currentWeather={currentWeather} dayTimestep={dayTimestep} />
       <hr />
       <ConditionScaleLegend />

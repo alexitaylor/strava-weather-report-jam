@@ -16,7 +16,11 @@ const WeatherCodeImage = ({
       }
 
       let formattedDescription;
-      if (weatherDescription.includes(' and ')) {
+      if (weatherCode === 11030) {
+        formattedDescription = 'mostly_clear';
+      } else if (weatherCode === 21010) {
+        formattedDescription = `fog_light_mostly_clear`;
+      } else if (weatherDescription.includes(' and ')) {
         formattedDescription = weatherDescription.split('and').map((w) => w.trim().toLowerCase().split(' ').join('_'));
         formattedDescription = `${formattedDescription[1]}_${formattedDescription[0]}`;
       } else {

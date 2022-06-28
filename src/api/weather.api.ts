@@ -2,9 +2,10 @@ import { addDays, formatISO, subHours } from 'date-fns';
 import queryString from 'query-string';
 
 import { TIMESTEP, UNITS } from '../constants';
+import { seattleMockData } from '../mocks/seattle-mock-data';
 import { timelineMockData } from '../mocks/timeline-mock-data';
 import { WeatherResp } from '../models';
-import { timeout } from '../utils';
+import { isDefined, timeout } from '../utils';
 
 const IS_MOCKED = true;
 
@@ -13,9 +14,6 @@ const getTimelineURL = 'https://api.tomorrow.io/v4/timelines';
 
 // get your key from app.tomorrow.io/development/keys
 const apikey = '1Yj3aqM41jqaKVuoRBcyJNcNDwCJ7rZv';
-
-// pick the location, as a lat,long pair
-let location = [37.773972, -122.431297];
 
 // list the fields
 const fields = [
@@ -55,36 +53,56 @@ const endTime = formatISO(addDays(now, 5));
 const timezone = 'America/Los_Angeles';
 
 // request the timelines with all the query string parameters as options
-const getTimelineParameters = queryString.stringify(
-  {
-    apikey,
-    location,
-    fields,
-    units: UNITS,
-    timesteps,
-    startTime,
-    endTime,
-    timezone,
-  },
-  { arrayFormat: 'comma' }
-);
+const getTimelineParameters = (location: number[]) =>
+  queryString.stringify(
+    {
+      apikey,
+      location,
+      fields,
+      units: UNITS,
+      timesteps,
+      startTime,
+      endTime,
+      timezone,
+    },
+    { arrayFormat: 'comma' }
+  );
 
-const loadMockData = async () => {
+const loadMockData = async (city?: string) => {
   const delay = 500;
 
   await timeout(delay);
+  if (city?.toLowerCase() === 'seattle') {
+    return seattleMockData;
+  }
+
   return timelineMockData;
 };
 
-export const getTimeline = async (): Promise<WeatherResp> => {
+export const getTimeline = async ({
+  longitude,
+  latitude,
+  city,
+}: {
+  longitude?: number;
+  latitude?: number;
+  city?: string;
+}): Promise<WeatherResp> => {
   try {
     if (IS_MOCKED) {
       console.log('FETCHING MOCKED');
-      return await loadMockData();
+      return await loadMockData(city);
     }
 
     console.log('FETCHING API');
-    const result = await fetch(`${getTimelineURL}?${getTimelineParameters}`);
+    // pick the location, as a lat,long pair
+    let location: number[] = [37.773972, -122.431297];
+    if (isDefined(longitude) && isDefined(latitude)) {
+      // @ts-ignore
+      location = [latitude, longitude];
+    }
+    const params = getTimelineParameters(location);
+    const result = await fetch(`${getTimelineURL}?${params}`);
     return result.json();
   } catch (error) {
     console.error('error: ', error);

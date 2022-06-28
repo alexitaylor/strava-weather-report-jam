@@ -3,6 +3,7 @@ import { differenceInHours, differenceInMinutes, format } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
 
 import { DATE_FORMAT, UNITS } from '../constants';
+import { useCityContext } from '../contexts/CityContext';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { WeatherIntervalsValues, WeatherTimelines } from '../models';
 import { calculateWeatherCondition, ConditionScale } from '../service';
@@ -76,6 +77,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
   const [activeDay, setActiveDay] = useState(dayTimestep?.intervals[0].startTime);
   const [currentWeather, setCurrentWeather] = useState(currentWeatherProp);
   const { userSettings } = useUserSettingsContext();
+  const { city } = useCityContext();
 
   const weatherDescription = getWeatherCodes('weatherCodeDay', currentWeather?.weatherCodeDay as number);
   const {
@@ -120,7 +122,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
         <div className="date-location">
           <span className="day">{format(new Date(currentDate), DATE_FORMAT.DAY_OF_WEEK)}</span>
           <span className="date">{format(new Date(currentDate), DATE_FORMAT.DEFAULT)}</span>
-          <span className="location">San Francisco</span>
+          <span className="location">{city?.city}</span>
         </div>
         <div className="current-weather-stats">
           <div className="weather-code mr-3">
