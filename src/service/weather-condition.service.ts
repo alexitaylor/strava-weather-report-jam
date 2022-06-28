@@ -56,7 +56,7 @@ export const ConditionScale: IConditionScale = {
     description: '',
   },
   default: {
-    value: '',
+    value: 'default',
     colorStyle: 'has-orange-color',
     bgStyle: 'has-orange-bg',
     colorVar: 'var(--orange)',
