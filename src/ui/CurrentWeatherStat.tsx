@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { differenceInHours, differenceInMinutes, format } from 'date-fns';
+import { differenceInHours, differenceInMinutes, format, isSameDay } from 'date-fns';
 import { useEffect, useMemo, useState } from 'react';
 
 import { DATE_FORMAT, UNITS } from '../constants';
@@ -31,7 +31,9 @@ const getWeatherStats = (stats?: WeatherIntervalsValues) => {
     rainAccumulation: `${stats?.rainAccumulation ?? '--'} in`,
     sunriseTime: stats?.sunriseTime ? format(new Date(stats.sunriseTime), DATE_FORMAT.HOUR_MIN) : '--',
     sunsetTime: stats?.sunsetTime
-      ? `${format(new Date(stats.sunsetTime), DATE_FORMAT.HOUR_MIN)} (${getTimeToSunset(stats.sunsetTime)})`
+      ? `${format(new Date(stats.sunsetTime), DATE_FORMAT.HOUR_MIN)} ${
+          isSameDay(new Date(), new Date(stats.sunsetTime)) ? `(${getTimeToSunset(stats.sunsetTime)})` : ''
+        }`
       : '--',
     windSpeed: `${stats?.windSpeed ?? '--'}mph`,
     windDirection: stats?.windDirection ? `${getCompassDirection(stats.windDirection)} (${stats.windDirection})` : '--',

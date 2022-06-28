@@ -59,7 +59,7 @@ function App() {
       {/*<header className="App-header">*/}
       {/*  <p>San Francisco</p>*/}
       {/*</header>*/}
-      <h1>San Francisco</h1>
+      <h1>Weather Conditions</h1>
       <CitySearch />
       <CurrentWeatherStat currentWeather={currentWeather} dayTimestep={dayTimestep} />
       <hr />
