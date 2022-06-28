@@ -3,10 +3,10 @@ import { Dispatch, SetStateAction } from 'react';
 export interface UserSettings {
   temperatureLow: number;
   temperatureHigh: number;
-  precipitationChanceLow: number;
-  precipitationChanceHigh: number;
-  precipitationAmountLow: number;
-  precipitationAmountHigh: number;
+  precipitationProbabilityLow: number;
+  precipitationProbabilityHigh: number;
+  rainAccumulationLow: number;
+  rainAccumulationHigh: number;
   windSpeedLow: number;
   windSpeedHigh: number;
 }

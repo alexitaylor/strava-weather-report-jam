@@ -81,44 +81,58 @@ code {
   --spacing-xxlarge: 64px;
 }
 
+.has-orange-color {
+  color: var(--orange) !important;
+}
+
+.has-orange-bg {
+  background-color: var(--orange) !important;
+  color: var(--white) !important;
+}
+
 .has-low-color {
-  color: var(--green);
+  color: var(--green) !important;
 }
 
 .has-low-bg {
-  background-color: var(--green);
+  background-color: var(--green) !important;
+  color: var(--text-color) !important;
 }
 
 .has-moderate-color {
-  color: var(--brand-success);
+  color: var(--brand-success) !important;
 }
 
 .has-moderate-bg {
-  background-color: var(--brand-success);
+  background-color: var(--brand-success) !important;
+  color: var(--text-color) !important;
 }
 
 .has-high-color {
-  color: var(--y50-gold);
+  color: var(--y50-gold) !important;
 }
 
 .has-high-bg {
-  background-color: var(--y50-gold);
+  background-color: var(--y50-gold) !important;
+  color: var(--text-color) !important;
 }
 
 .has-very-high-color {
-  color: var(--brand-danger);
+  color: var(--brand-danger) !important;
 }
 
 .has-very-high-bg {
-  background-color: var(--brand-danger);
+  background-color: var(--brand-danger) !important;
+  color: var(--white) !important;
 }
 
 .has-extreme-color {
-  color: var(--orange-dark);
+  color: var(--orange-dark) !important;
 }
 
 .has-extreme-bg {
-  background-color: var(--orange-dark);
+  background-color: var(--orange-dark) !important;
+  color: var(--white) !important;
 }
 
 .mr-3 {

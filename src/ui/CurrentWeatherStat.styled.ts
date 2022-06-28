@@ -10,7 +10,7 @@ const CurrentWeatherStatStyled = styled.div`
   flex-direction: row;
 
   .current-weather-container {
-    background: var(--brand-primary);
+    // TODO background: var(--brand-primary);
     color: var(--white);
     display: flex;
     flex-direction: column;

@@ -2,22 +2,15 @@ import './App.css';
 
 import { isSameDay } from 'date-fns';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 
 import { getTimeline } from './api';
 import { TIMESTEP } from './constants';
-import { WeatherIntervalsValues, WeatherResp, WeatherTimelines } from './models';
+import { WeatherIntervalsValues, WeatherTimelines } from './models';
 import ConditionScaleLegend from './ui/ConditionScaleLegend';
 import CurrentWeatherStat from './ui/CurrentWeatherStat';
 import ScreenWidthToast from './ui/ScreenWidthToast';
 import WeatherChart from './ui/WeatherChart';
 import WeatherPreference from './ui/WeatherPreference';
-
-const Title = styled.h1`
-  font-size: 1.5em;
-  text-align: center;
-  color: palevioletred;
-`;
 
 function App() {
   const [currentWeather, setCurrentWeather] = useState<WeatherIntervalsValues>();
@@ -53,7 +46,6 @@ function App() {
     })();
   }, []);
 
-  console.log('currentWeather.current', currentWeather);
   return (
     <div className="App">
       <ScreenWidthToast />

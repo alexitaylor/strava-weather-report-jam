@@ -1,10 +1,12 @@
+// @ts-ignore
 /**
  * 👀 https://docs.tomorrow.io/reference/data-layers-weather-codes
  *
  * @params {'weatherCode' | 'weatherCodeFullDay' | 'weatherCodeDay' | 'weatherCodeNight'} field
  * @params {number | undefined} fieldCode
  * **/
-export const getWeatherCodes = (field: string, fieldCode: string): number | undefined =>
+export const getWeatherCodes = (field: string, fieldCode: number): string =>
+  // @ts-ignore
   ({
     weatherCode: {
       0: 'Unknown',

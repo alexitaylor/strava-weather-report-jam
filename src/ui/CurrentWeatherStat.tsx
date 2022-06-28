@@ -1,10 +1,11 @@
 import classnames from 'classnames';
 import { differenceInHours, differenceInMinutes, format } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { DATE_FORMAT, UNITS } from '../constants';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { WeatherIntervalsValues, WeatherTimelines } from '../models';
+import { calculateWeatherCondition, ConditionScale } from '../service';
 import { getCompassDirection, getUvIndexValue, getWeatherCodes, isDefined } from '../utils';
 import Button from './Button/Button';
 import ButtonGroup from './Button/ButtonGroup';
@@ -24,7 +25,7 @@ const getTimeToSunset = (sunsetTime: string): string => {
 const getWeatherStats = (stats?: WeatherIntervalsValues) => {
   return {
     temperatureApparent: stats?.temperatureApparent ? `${Math.round(stats?.temperatureApparent)}°` : '--',
-    weatherCodeDay: getWeatherCodes('weatherCodeDay', stats?.weatherCodeDay),
+    weatherCodeDay: getWeatherCodes('weatherCodeDay', stats?.weatherCodeDay as number),
     precipitationProbability: `${stats?.precipitationProbability ?? '--'}%`,
     rainAccumulation: `${stats?.rainAccumulation ?? '--'} in`,
     sunriseTime: stats?.sunriseTime ? format(new Date(stats.sunriseTime), DATE_FORMAT.HOUR_MIN) : '--',
@@ -76,7 +77,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
   const [currentWeather, setCurrentWeather] = useState(currentWeatherProp);
   const { userSettings } = useUserSettingsContext();
 
-  const weatherDescription = getWeatherCodes('weatherCodeDay', currentWeather?.weatherCodeDay);
+  const weatherDescription = getWeatherCodes('weatherCodeDay', currentWeather?.weatherCodeDay as number);
   const {
     temperatureApparent,
     weatherCodeDay,
@@ -90,6 +91,15 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
     uvHealthConcern,
   } = getWeatherStats(currentWeather);
   const currentDate = activeDay ?? new Date();
+
+  // Get Weather Condition
+  const weatherCondition = useMemo(() => {
+    if (userSettings && currentWeather) {
+      return calculateWeatherCondition(currentWeather, userSettings);
+    }
+
+    return ConditionScale.default;
+  }, [currentWeather, userSettings]);
 
   useEffect(() => {
     if (dayTimestep) {
@@ -106,7 +116,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
   return (
     <CurrentWeatherStatStyled>
       {/*Right Side */}
-      <div className="current-weather-container">
+      <div className={classnames('current-weather-container', weatherCondition.bgStyle)}>
         <div className="date-location">
           <span className="day">{format(new Date(currentDate), DATE_FORMAT.DAY_OF_WEEK)}</span>
           <span className="date">{format(new Date(currentDate), DATE_FORMAT.DEFAULT)}</span>
@@ -161,8 +171,8 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
               value={precipitationProbability}
               className={getStatStyle({
                 stat: currentWeather?.precipitationProbability,
-                low: userSettings?.precipitationChanceLow,
-                high: userSettings?.precipitationChanceHigh,
+                low: userSettings?.precipitationProbabilityLow,
+                high: userSettings?.precipitationProbabilityHigh,
               })}
             />
             <Stat
@@ -170,8 +180,8 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
               value={rainAccumulation}
               className={getStatStyle({
                 stat: currentWeather?.rainAccumulation,
-                low: userSettings?.precipitationAmountLow,
-                high: userSettings?.precipitationAmountHigh,
+                low: userSettings?.rainAccumulationLow,
+                high: userSettings?.rainAccumulationHigh,
               })}
             />
           </div>
@@ -206,7 +216,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
           {dayTimestep?.intervals.map(({ startTime, values }) => (
             <Button
               className={classnames('forecast-day', {
-                active: activeDay === startTime,
+                [weatherCondition.bgStyle]: activeDay === startTime,
               })}
               onClick={() => {
                 setActiveDay(startTime);
@@ -216,7 +226,7 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
             >
               <WeatherCodeImage
                 weatherCode={values?.weatherCodeDay}
-                weatherDescription={getWeatherCodes('weatherCodeDay', values?.weatherCodeDay)}
+                weatherDescription={getWeatherCodes('weatherCodeDay', values?.weatherCodeDay as number)}
               />
               <span className="forecast-date">{format(new Date(startTime), DATE_FORMAT.DAY_OF_WEEK)}</span>
               <span className="forecast-temperature">{Math.round(values?.temperature)}</span>

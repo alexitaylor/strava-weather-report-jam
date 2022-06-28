@@ -8,10 +8,10 @@ import Modal from './Modal';
 const initState = {
   temperatureLow: 40,
   temperatureHigh: 80,
-  precipitationChanceLow: 0,
-  precipitationChanceHigh: 50,
-  precipitationAmountLow: 0,
-  precipitationAmountHigh: 3,
+  precipitationProbabilityLow: 0,
+  precipitationProbabilityHigh: 50,
+  rainAccumulationLow: 0,
+  rainAccumulationHigh: 3,
   windSpeedLow: 0,
   windSpeedHigh: 20,
 };
@@ -80,10 +80,10 @@ const WeatherPreference = () => {
   const {
     temperatureLow,
     temperatureHigh,
-    precipitationChanceLow,
-    precipitationChanceHigh,
-    precipitationAmountLow,
-    precipitationAmountHigh,
+    precipitationProbabilityLow,
+    precipitationProbabilityHigh,
+    rainAccumulationLow,
+    rainAccumulationHigh,
     windSpeedLow,
     windSpeedHigh,
   } = state;
@@ -120,16 +120,16 @@ const WeatherPreference = () => {
             <div className="input-grouped">
               <Input
                 label="Precipitation Chance Low"
-                name="precipitationChanceLow"
+                name="precipitationProbabilityLow"
                 type="number"
-                value={precipitationChanceLow}
+                value={precipitationProbabilityLow}
                 onChange={onChange}
               />
               <Input
                 label="Precipitation Chance High"
-                name="precipitationChanceHigh"
+                name="precipitationProbabilityHigh"
                 type="number"
-                value={precipitationChanceHigh}
+                value={precipitationProbabilityHigh}
                 onChange={onChange}
               />
             </div>
@@ -137,16 +137,16 @@ const WeatherPreference = () => {
             <div className="input-grouped">
               <Input
                 label="Precipitation Amount Low"
-                name="precipitationAmountLow"
+                name="rainAccumulationLow"
                 type="number"
-                value={precipitationAmountLow}
+                value={rainAccumulationLow}
                 onChange={onChange}
               />
               <Input
                 label="Precipitation Amount High"
-                name="precipitationAmountHigh"
+                name="rainAccumulationHigh"
                 type="number"
-                value={precipitationAmountHigh}
+                value={rainAccumulationHigh}
                 onChange={onChange}
               />
             </div>

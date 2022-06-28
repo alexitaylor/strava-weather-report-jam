@@ -2,6 +2,17 @@ import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 
 import { UserSettings, UserSettingsState } from '../models';
 
+const initState = {
+  temperatureLow: 40,
+  temperatureHigh: 80, // 80
+  precipitationProbabilityLow: 0,
+  precipitationProbabilityHigh: 50,
+  rainAccumulationLow: 0,
+  rainAccumulationHigh: 3,
+  windSpeedLow: 0,
+  windSpeedHigh: 20, // 20
+};
+
 const UserSettingsContext = createContext<UserSettingsState | undefined>(undefined);
 UserSettingsContext.displayName = 'UserSettingsContext';
 
@@ -16,7 +27,7 @@ export const useUserSettingsContext = (): UserSettingsState => {
 };
 
 export const UserSettingsProvider = ({ children }: { children: ReactNode }) => {
-  const [state, setState] = useState<UserSettings | undefined>(undefined);
+  const [state, setState] = useState<UserSettings | undefined>(initState);
 
   const providerState = useMemo(
     () => ({
