@@ -60,61 +60,61 @@ const conditions: Conidtions = {
     key: 'temperature',
     label: 'Temperature',
     colorStyle: 'has-temperature-color',
-    colorVar: 'var(--brand-success)',
+    colorVar: 'var(--green-600)',
   },
   temperatureApparent: {
     key: 'temperatureApparent',
     label: 'Feels Like',
     colorStyle: 'has-temperature-apparent-color',
-    colorVar: 'var(--green)',
+    colorVar: 'var(--emerald-600)',
   },
   windSpeed: {
     key: 'windSpeed',
     label: 'Wind Speed',
     colorStyle: 'has-wind-speed-color',
-    colorVar: 'var(--orange)',
+    colorVar: 'var(--purple-700)',
   },
   windGust: {
     key: 'windGust',
     label: 'Wind Gust',
     colorStyle: 'has-wind-guest-color',
-    colorVar: 'var(--brand-danger)',
+    colorVar: 'var(--rose-600)',
   },
   windDirection: {
     key: 'windDirection',
     label: 'Wind Direction',
     colorStyle: 'has-wind-direction-color',
-    colorVar: 'var(--y50-gold)',
+    colorVar: 'var(--pink-600)',
   },
   precipitationProbability: {
     key: 'precipitationProbability',
     label: 'Precip. Chance',
     colorStyle: 'has-precipitation-probability-color',
-    colorVar: 'var(--brand-info)',
+    colorVar: 'var(--blue-600)',
   },
   rainAccumulation: {
     key: 'rainAccumulation',
     label: 'Rain Amount',
     colorStyle: 'has-rain-accumulation-color',
-    colorVar: 'var(--indigo-light)',
+    colorVar: 'var(--cyan-600)',
   },
   precipitationIntensity: {
     key: 'precipitationIntensity',
     label: 'Precip. Intensity',
     colorStyle: 'has-precipitation-intensity-color',
-    colorVar: 'var(--cyan-dark)',
+    colorVar: 'var(--indigo-700)',
   },
   uvHealthConcern: {
     key: 'uvHealthConcern',
     label: 'UV Health Concern',
     colorStyle: 'has-uv-health-concern-color',
-    colorVar: 'var(--y50-gold)',
+    colorVar: 'var(--amber-600)',
   },
   uvIndex: {
     key: 'uvIndex',
     label: 'UV Index',
     colorStyle: 'has-uv-index-color',
-    colorVar: 'var(--orange-dark)',
+    colorVar: 'var(--orange-600)',
   },
 };
 
@@ -281,7 +281,7 @@ const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Brush dataKey="startTime" height={30} stroke="#8884d8" endIndex={brushEndIndex} travellerWidth={5} />
+          <Brush dataKey="startTime" height={30} stroke="var(--orange)" endIndex={brushEndIndex} travellerWidth={5} />
           {selectedConditions.map((k) => (
             <Line key={k} type="monotone" dataKey={k} stroke={conditions[k].colorVar} strokeWidth={3} />
           ))}

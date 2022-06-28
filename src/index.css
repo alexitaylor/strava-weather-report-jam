@@ -71,6 +71,21 @@ code {
   --text-color-secondary: var(--n80-asphalt);
   --text-color-tertiary: var(--n70-gravel);
 
+  /* Custom colors */
+  --blue-600: #2563EB;
+  --cyan-500: #06B6D4;
+  --cyan-600: #0891B2;
+  --indigo-500: #6366F1;
+  --indigo-700: #4338CA;
+  --purple-700: #7E22CE;
+  --pink-600: #DB2777;
+  --rose-600: #E11D48;
+  --amber-600: #D97706;
+  --green-600: #16A34A;
+  --emerald-700: #047857;
+  --emerald-600: #16A34A;
+  --orange-600: #EA580C;
+
   /*Spacing*/
   --spacing-xxsmall: 4px;
   --spacing-xsmall: 6px;
@@ -140,51 +155,51 @@ code {
 }
 
 .has-temperature-color {
-  color: var(--brand-success) !important;
-  border-bottom: 2px solid var(--brand-success) !important;
+  color: var(--green-600) !important;
+  border-bottom: 2px solid var(--green-600) !important;
 }
 
 .has-temperature-apparent-color {
-  color: var(--green) !important;
-  border-bottom: 2px solid var(--green) !important;
+  color: var(--emerald-600) !important;
+  border-bottom: 2px solid var(--emerald-600) !important;
 }
 
 .has-wind-speed-color {
-  color: var(--orange) !important;
-  border-bottom: 2px solid var(--orange) !important;
+  color: var(--purple-700) !important;
+  border-bottom: 2px solid var(--purple-700) !important;
 }
 
 .has-wind-guest-color {
-  color: var(--brand-danger) !important;
-  border-bottom: 2px solid var(--brand-danger) !important;
+  color: var(--rose-600) !important;
+  border-bottom: 2px solid var(--rose-600) !important;
 }
 
 .has-wind-direction-color {
-  color: var(--y50-gold) !important;
-  border-bottom: 2px solid var(--y50-gold) !important;
+  color: var(--pink-600) !important;
+  border-bottom: 2px solid var(--pink-600) !important;
 }
 
 .has-precipitation-probability-color {
-  color: var(--brand-info) !important;
-  border-bottom: 2px solid var(--brand-info) !important;
+  color: var(--blue-600) !important;
+  border-bottom: 2px solid var(--blue-600) !important;
 }
 
 .has-rain-accumulation-color {
-  color: var(--indigo-light) !important;
-  border-bottom: 2px solid var(--indigo-light) !important;
+  color: var(--cyan-600) !important;
+  border-bottom: 2px solid var(--cyan-600) !important;
 }
 
 .has-precipitation-intensity-color {
-  color: var(--cyan-dark) !important;
-  border-bottom: 2px solid var(--cyan-dark) !important;
+  color: var(--indigo-700) !important;
+  border-bottom: 2px solid var(--indigo-700) !important;
 }
 
 .has-uv-health-concern-color {
-  color: var(--y50-gold) !important;
-  border-bottom: 2px solid var(--y50-gold) !important;
+  color: var(--amber-600) !important;
+  border-bottom: 2px solid var(--amber-600) !important;
 }
 
 .has-uv-index-color {
-  color: var(--orange-dark) !important;
-  border-bottom: 2px solid var(--orange-dark) !important;
+  color: var(--orange-600) !important;
+  border-bottom: 2px solid var(--orange-600) !important;
 }
