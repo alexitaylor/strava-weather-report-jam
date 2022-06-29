@@ -141,6 +141,10 @@ export const calculateWeatherCondition = (
   totalConditionIndex = conditions.reduce((total, condition) => {
     let conditionIndex;
     if (condition === 'uvIndex' || condition === 'uvHealthConcern') {
+      // Disabling uvIndex in overall Condition score.
+      if (condition === 'uvIndex') {
+        return total;
+      }
       conditionIndex = getUvConditionIndex(currentWeather[condition as keyof typeof currentWeather] as number);
     } else {
       // TODO maybe average precipitationProbability and rainAccumulation???
@@ -155,6 +159,7 @@ export const calculateWeatherCondition = (
   }, 0);
 
   const average = Math.ceil(totalConditionIndex / conditions.length);
+
   const condition = Object.keys(ConditionIndexValue).filter(
     (k) => ConditionIndexValue[k as keyof typeof ConditionIndexValue] === average
   )[0];
