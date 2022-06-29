@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 
 import { getTimeline } from './api';
 import CitySearch from './api/CitySearch';
+import chainRingLogo from './assets/chainRingLogo.png';
 import { TIMESTEP } from './constants';
 import { useCityContext } from './contexts/CityContext';
 import { WeatherIntervalsValues, WeatherTimelines } from './models';
@@ -59,10 +60,11 @@ function App() {
       {/*  <p>San Francisco</p>*/}
       {/*</header>*/}
       <h1>Weather Conditions</h1>
+      <img src={chainRingLogo} alt="" />
       <CitySearch />
       <CurrentWeatherStat currentWeather={currentWeather} dayTimestep={dayTimestep} />
       <hr />
-      <ConditionScaleLegend />
+      <ConditionScaleLegend currentWeather={currentWeather} />
       <hr />
       <WeatherPreference />
       <hr />
