@@ -60,7 +60,7 @@ function App() {
       {/*  <p>San Francisco</p>*/}
       {/*</header>*/}
       <h1>Weather Conditions</h1>
-      <img src={chainRingLogo} alt="" />
+      <img src={chainRingLogo} alt="" height="200px" />
       <CitySearch />
       <CurrentWeatherStat />
       <hr />

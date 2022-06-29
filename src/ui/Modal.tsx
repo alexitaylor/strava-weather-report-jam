@@ -12,7 +12,9 @@ const Modal = ({ children, openButtonText = 'Open Dialog' }: { children: ReactNo
   return (
     <div>
       {' '}
-      <button onClick={open}>{openButtonText}</button>
+      <button onClick={open} style={{ fontSize: '1.2rem' }}>
+        {openButtonText}
+      </button>
       <DialogOverlay isOpen={showDialog} onDismiss={close} style={{ zIndex: 999 }}>
         <DialogContent style={{ width: '65vw' }}>
           <button className="close-button" onClick={close}>

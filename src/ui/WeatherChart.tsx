@@ -11,8 +11,13 @@ import { getCompassDirection, getUvIndexValue, isDefined } from '../utils';
 
 const WeatherChartStyled = styled.div`
   width: calc(100vw - 5rem);
-  height: 600px;
+  height: 800px;
+  //height: 100%;
   margin: 2rem 1rem;
+  background: var(--n10-fog);
+  border-radius: 10px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 `;
 
 const parseTimeLineData = (intervals: WeatherIntervals[]) => {
@@ -165,8 +170,14 @@ const ConditionMenuStyled = styled.div`
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 1.75rem;
+  //flex-wrap: wrap;
+  //background: var(--n30-silver);
+  //border-radius: 5px;
+  //padding: 0.5rem;
+  //box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 
   .label-value {
+    //flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -232,7 +243,7 @@ const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
     if (width >= 1400) {
       return 18;
     } else if (width >= 1250 && width < 1400) {
-      return 15;
+      return 14;
     } else if (width >= 1000 && width < 1250) {
       return 13;
     } else if (width >= 950 && width < 1000) {
@@ -264,7 +275,7 @@ const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
         selectedConditions={selectedConditions}
         selectCondition={selectCondition}
       />
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer width="100%" height="80%">
         <LineChart
           data={data}
           margin={{
