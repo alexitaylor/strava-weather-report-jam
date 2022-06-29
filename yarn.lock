@@ -566,6 +566,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-ranger@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/react-ranger/-/react-ranger-2.0.1.tgz#63f1b7d71b7b3e666a1a62a0482470d965b66aa6"
+  integrity sha512-q+vEB4N38b/x3jpqUns05/7QoggT/A3WKVD7X153InQdlhuwYEZ1KxrlNoJLrMpQvB6sDru8+Gq9bGcndU6yMA==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^18.0.0":
   version "18.0.14"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.14.tgz#e016616ffff51dba01b04945610fe3671fdbe06d"
@@ -2755,6 +2762,11 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-ranger@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/react-ranger/-/react-ranger-2.1.0.tgz#a9007d67a7871736fffc5fe0d7c54a736771e9a1"
+  integrity sha512-d8ezhyX3v/KlN8SkyoE5e8Dybsdmn94eUAqBDsAPrVhZde8sVt6pLJw4fC784KiMmS4LyAjvtjGxhAEqjjGYgw==
 
 react-refresh@^0.13.0:
   version "0.13.0"

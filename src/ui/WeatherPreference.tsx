@@ -1,9 +1,11 @@
-import { ChangeEvent, FormEvent, InputHTMLAttributes, useCallback, useReducer } from 'react';
+import { FormEvent, useCallback, useReducer } from 'react';
 import styled from 'styled-components';
 
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { UserSettings } from '../models';
+// import Input from './Input';
 import Modal from './Modal';
+import RangeSlider from './RangeSlider';
 
 const initState = {
   temperatureLow: 40,
@@ -23,31 +25,6 @@ function reducer(state: UserSettings, { field, value }: { field: string; value: 
   };
 }
 
-const InputStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  label {
-    font-size: 1.24rem;
-    color: #494950;
-    font-weight: 400;
-    margin-bottom: 4px;
-  }
-`;
-
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string;
-}
-
-const Input = ({ label, value, type, name, onChange }: InputProps) => {
-  return (
-    <InputStyled>
-      <label>{label}</label>
-      <input value={value} type={type} name={name} onChange={onChange} />
-    </InputStyled>
-  );
-};
-
 const WeatherPreferenceStyled = styled.div`
   width: 100%;
 
@@ -65,18 +42,23 @@ const WeatherPreferenceStyled = styled.div`
       margin-right: 24px;
     }
   }
+
+  button {
+    font-size: 1.2rem;
+  }
 `;
 
 const WeatherPreference = () => {
   const { userSettings, setUserSettings } = useUserSettingsContext();
   const [state, dispatch] = useReducer(reducer, userSettings ?? initState);
 
-  const onChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      dispatch({ field: e.target.name, value: Number.parseInt(e.target.value, 10) });
-    },
-    [dispatch]
-  );
+  // const onChange = useCallback(
+  //   (e: ChangeEvent<HTMLInputElement>) => {
+  //     dispatch({ field: e.target.name, value: Number.parseInt(e.target.value, 10) });
+  //   },
+  //   [dispatch]
+  // );
+
   const {
     temperatureLow,
     temperatureHigh,
@@ -88,88 +70,134 @@ const WeatherPreference = () => {
     windSpeedHigh,
   } = state;
 
-  const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleOnSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    console.log('state', state);
     setUserSettings(state);
   };
+
+  const onChange = useCallback(
+    (name: string, values: number[]) => {
+      const [min, max] = values;
+      const minName = `${name}Low`;
+      const maxName = `${name}High`;
+      dispatch({ field: minName, value: min });
+      dispatch({ field: maxName, value: max });
+    },
+    [dispatch]
+  );
 
   return (
     <div>
       <Modal openButtonText="Open Weather Preference">
         <WeatherPreferenceStyled>
           <h2>Weather Preference</h2>
-          <form onSubmit={handleOnSubmit}>
-            {/* Temp Pref */}
-            <div className="input-grouped">
-              <Input
-                label="Temperature Low"
-                name="temperatureLow"
-                type="number"
-                value={temperatureLow}
-                onChange={onChange}
-              />
-              <Input
-                label="Temperature High"
-                name="temperatureHigh"
-                type="number"
-                value={temperatureHigh}
-                onChange={onChange}
-              />
-            </div>
-            {/* Precipitation Chance Pref */}
-            <div className="input-grouped">
-              <Input
-                label="Precipitation Chance Low"
-                name="precipitationProbabilityLow"
-                type="number"
-                value={precipitationProbabilityLow}
-                onChange={onChange}
-              />
-              <Input
-                label="Precipitation Chance High"
-                name="precipitationProbabilityHigh"
-                type="number"
-                value={precipitationProbabilityHigh}
-                onChange={onChange}
-              />
-            </div>
-            {/* Precipitation Amount Pref */}
-            <div className="input-grouped">
-              <Input
-                label="Precipitation Amount Low"
-                name="rainAccumulationLow"
-                type="number"
-                value={rainAccumulationLow}
-                onChange={onChange}
-              />
-              <Input
-                label="Precipitation Amount High"
-                name="rainAccumulationHigh"
-                type="number"
-                value={rainAccumulationHigh}
-                onChange={onChange}
-              />
-            </div>
-            {/* Wind Speed Pref */}
-            <div className="input-grouped">
-              <Input
-                label="Wind Speed Low"
-                name="windSpeedLow"
-                type="number"
-                value={windSpeedLow}
-                onChange={onChange}
-              />
-              <Input
-                label="Wind Speed High"
-                name="windSpeedHigh"
-                type="number"
-                value={windSpeedHigh}
-                onChange={onChange}
-              />
-            </div>
+          <RangeSlider
+            label="Temperature"
+            name="temperature"
+            onChange={onChange}
+            lowValue={temperatureLow}
+            highValue={temperatureHigh}
+          />
+          <hr />
+          <RangeSlider
+            label="Precipitation Chance"
+            name="precipitationProbability"
+            onChange={onChange}
+            lowValue={precipitationProbabilityLow}
+            highValue={precipitationProbabilityHigh}
+          />
+          <hr />
+          <RangeSlider
+            label="Precipitation Amount"
+            name="rainAccumulation"
+            onChange={onChange}
+            lowValue={rainAccumulationLow}
+            highValue={rainAccumulationHigh}
+          />
+          <hr />
+          <RangeSlider
+            label="Wind Speed"
+            name="windSpeed"
+            onChange={onChange}
+            lowValue={windSpeedLow}
+            highValue={windSpeedHigh}
+          />
+          <hr />
+          <button onClick={handleOnSubmit}>Submit</button>
+          {/* TODO remove */}
+          {/*<form onSubmit={handleOnSubmit}>*/}
+          {/*  /!* Temp Pref *!/*/}
+          {/*  <div className="input-grouped">*/}
+          {/*    <Input*/}
+          {/*      label="Temperature Low"*/}
+          {/*      name="temperatureLow"*/}
+          {/*      type="number"*/}
+          {/*      value={temperatureLow}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*    <Input*/}
+          {/*      label="Temperature High"*/}
+          {/*      name="temperatureHigh"*/}
+          {/*      type="number"*/}
+          {/*      value={temperatureHigh}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*  /!* Precipitation Chance Pref *!/*/}
+          {/*  <div className="input-grouped">*/}
+          {/*    <Input*/}
+          {/*      label="Precipitation Chance Low"*/}
+          {/*      name="precipitationProbabilityLow"*/}
+          {/*      type="number"*/}
+          {/*      value={precipitationProbabilityLow}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*    <Input*/}
+          {/*      label="Precipitation Chance High"*/}
+          {/*      name="precipitationProbabilityHigh"*/}
+          {/*      type="number"*/}
+          {/*      value={precipitationProbabilityHigh}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*  /!* Precipitation Amount Pref *!/*/}
+          {/*  <div className="input-grouped">*/}
+          {/*    <Input*/}
+          {/*      label="Precipitation Amount Low"*/}
+          {/*      name="rainAccumulationLow"*/}
+          {/*      type="number"*/}
+          {/*      value={rainAccumulationLow}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*    <Input*/}
+          {/*      label="Precipitation Amount High"*/}
+          {/*      name="rainAccumulationHigh"*/}
+          {/*      type="number"*/}
+          {/*      value={rainAccumulationHigh}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*  /!* Wind Speed Pref *!/*/}
+          {/*  <div className="input-grouped">*/}
+          {/*    <Input*/}
+          {/*      label="Wind Speed Low"*/}
+          {/*      name="windSpeedLow"*/}
+          {/*      type="number"*/}
+          {/*      value={windSpeedLow}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*    <Input*/}
+          {/*      label="Wind Speed High"*/}
+          {/*      name="windSpeedHigh"*/}
+          {/*      type="number"*/}
+          {/*      value={windSpeedHigh}*/}
+          {/*      onChange={onChange}*/}
+          {/*    />*/}
+          {/*  </div>*/}
 
-            <button type="submit">Submit</button>
-          </form>
+          {/*  <button type="submit">Submit</button>*/}
+          {/*</form>*/}
         </WeatherPreferenceStyled>
       </Modal>
     </div>

@@ -45,3 +45,5 @@ export const getCompassDirection = (bearing: number) => {
  */
 
 export const isDefined = (value: unknown): boolean => typeof value !== 'undefined' && value !== null;
+
+export const generateRandomId = () => Math.random().toString(36).substring(2);
