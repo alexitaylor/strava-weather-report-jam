@@ -2,12 +2,8 @@ import { addDays, formatISO, subHours } from 'date-fns';
 import queryString from 'query-string';
 
 import { TIMESTEP, UNITS } from '../constants';
-import { seattleMockData } from '../mocks/seattle-mock-data';
-import { timelineMockData } from '../mocks/timeline-mock-data';
 import { WeatherResp } from '../models';
-import { isDefined, timeout } from '../utils';
-
-const IS_MOCKED = true;
+import { isDefined } from '../utils';
 
 // set the Timelines GET endpoint as the target URL
 const getTimelineURL = 'https://api.tomorrow.io/v4/timelines';
@@ -68,32 +64,14 @@ const getTimelineParameters = (location: number[]) =>
     { arrayFormat: 'comma' }
   );
 
-const loadMockData = async (city?: string) => {
-  const delay = 500;
-
-  await timeout(delay);
-  if (city?.toLowerCase() === 'seattle') {
-    return seattleMockData;
-  }
-
-  return timelineMockData;
-};
-
 export const getTimeline = async ({
   longitude,
   latitude,
-  city,
 }: {
   longitude?: number;
   latitude?: number;
-  city?: string;
 }): Promise<WeatherResp> => {
   try {
-    if (IS_MOCKED) {
-      console.log('FETCHING MOCKED');
-      return await loadMockData(city);
-    }
-
     console.log('FETCHING API');
     // pick the location, as a lat,long pair
     let location: number[] = [37.773972, -122.431297];

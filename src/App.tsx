@@ -25,7 +25,6 @@ function App() {
       const { data } = await getTimeline({
         longitude: city?.longitude,
         latitude: city?.latitude,
-        city: city?.city,
       });
       console.log('data', data);
       // console.log('data', JSON.stringify(data));
