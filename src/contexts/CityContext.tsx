@@ -26,7 +26,7 @@ export const useCityContext = (): CityState => {
   const context = useContext(CityContext);
 
   if (!context) {
-    throw new Error(`useCityContext must be used within the CityContext`);
+    throw new Error(`useCityContext must be used within the CityContextProvider`);
   }
 
   return context;

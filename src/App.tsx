@@ -1,14 +1,15 @@
 import './App.css';
 
 import { isSameDay } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { getTimeline } from './api';
 import CitySearch from './api/CitySearch';
 import chainRingLogo from './assets/chainRingLogo.png';
 import { TIMESTEP } from './constants';
 import { useCityContext } from './contexts/CityContext';
-import { WeatherIntervalsValues, WeatherTimelines } from './models';
+import { useWeatherContext, WEATHER_ACTIONS } from './contexts/WeatherContext';
+import useSafeDispatch from './hooks/use-safe-dispatch.hook';
 import ConditionScaleLegend from './ui/ConditionScaleLegend';
 import CurrentWeatherStat from './ui/CurrentWeatherStat';
 import ScreenWidthToast from './ui/ScreenWidthToast';
@@ -16,9 +17,9 @@ import WeatherChart from './ui/WeatherChart';
 import WeatherPreference from './ui/WeatherPreference';
 
 function App() {
-  const [currentWeather, setCurrentWeather] = useState<WeatherIntervalsValues>();
-  const [dayTimestep, setDayTimestep] = useState<WeatherTimelines>();
-  const [hourTimestep, setHourTimestep] = useState<WeatherTimelines>();
+  const { state, dispatch } = useWeatherContext();
+  const { currentWeather, hourTimestep } = state;
+  const safeDispatch = useSafeDispatch(dispatch);
   const { city } = useCityContext();
 
   useEffect(() => {
@@ -32,20 +33,19 @@ function App() {
       data?.timelines.forEach((data) => {
         switch (data.timestep) {
           case TIMESTEP.CURRENT: {
-            // setCurrentWeather(data.intervals[0].values);
             break;
           }
           case TIMESTEP.DAY: {
             const currentDay = data.intervals.filter((item) => {
               return isSameDay(new Date(), new Date(item.startTime));
             })[0]?.values;
-            setCurrentWeather(currentDay);
 
-            setDayTimestep(data);
+            safeDispatch({ type: WEATHER_ACTIONS.SET_CURRENT_WEATHER, payload: currentDay });
+            safeDispatch({ type: WEATHER_ACTIONS.SET_TIMESTEP_DAY_WEATHER, payload: data });
             break;
           }
           case TIMESTEP.HOUR: {
-            setHourTimestep(data);
+            safeDispatch({ type: WEATHER_ACTIONS.SET_TIMESTEP_HOUR_WEATHER, payload: data });
             break;
           }
         }
@@ -62,9 +62,9 @@ function App() {
       <h1>Weather Conditions</h1>
       <img src={chainRingLogo} alt="" />
       <CitySearch />
-      <CurrentWeatherStat currentWeather={currentWeather} dayTimestep={dayTimestep} />
+      <CurrentWeatherStat />
       <hr />
-      <ConditionScaleLegend currentWeather={currentWeather} />
+      <ConditionScaleLegend />
       <hr />
       <WeatherPreference />
       <hr />

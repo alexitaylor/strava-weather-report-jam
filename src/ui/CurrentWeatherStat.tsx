@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { DATE_FORMAT, UNITS } from '../constants';
 import { useCityContext } from '../contexts/CityContext';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
+import { useWeatherContext, WEATHER_ACTIONS } from '../contexts/WeatherContext';
 import { WeatherIntervalsValues, WeatherTimelines } from '../models';
 import { calculateWeatherCondition, ConditionScale } from '../service';
 import { getCompassDirection, getUvIndexValue, getWeatherCodes, isDefined } from '../utils';
@@ -70,16 +71,12 @@ const getStatStyle = ({ stat, low, high }: { stat?: number; low?: number; high?:
   }
 };
 
-interface CurrentWeatherStatProps {
-  currentWeather?: WeatherIntervalsValues;
-  dayTimestep?: WeatherTimelines;
-}
-
-const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }: CurrentWeatherStatProps) => {
-  const [activeDay, setActiveDay] = useState(dayTimestep?.intervals[0].startTime);
-  const [currentWeather, setCurrentWeather] = useState(currentWeatherProp);
+const CurrentWeatherStat = () => {
   const { userSettings } = useUserSettingsContext();
   const { city } = useCityContext();
+  const { state, dispatch: dispatchWeather } = useWeatherContext();
+  const { currentWeather, dayTimestep } = state;
+  const [activeDay, setActiveDay] = useState(dayTimestep?.intervals[0].startTime);
 
   const weatherDescription = getWeatherCodes('weatherCodeDay', currentWeather?.weatherCodeDay as number);
   const {
@@ -110,12 +107,6 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
       setActiveDay(dayTimestep?.intervals[0].startTime);
     }
   }, [dayTimestep]);
-
-  useEffect(() => {
-    if (currentWeatherProp) {
-      setCurrentWeather(currentWeatherProp);
-    }
-  }, [currentWeatherProp]);
 
   return (
     <CurrentWeatherStatStyled>
@@ -224,7 +215,8 @@ const CurrentWeatherStat = ({ currentWeather: currentWeatherProp, dayTimestep }:
               })}
               onClick={() => {
                 setActiveDay(startTime);
-                setCurrentWeather(values);
+                // setCurrentWeather(values);
+                dispatchWeather({ type: WEATHER_ACTIONS.SET_CURRENT_WEATHER, payload: values });
               }}
               key={startTime}
             >
