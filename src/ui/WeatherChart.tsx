@@ -165,7 +165,7 @@ const getConditions = (current: WeatherIntervalsValues): Conidtions => ({
   },
 });
 
-const ConditionMenuStyled = styled.div`
+const WeatherFilterMenuStyled = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -203,36 +203,36 @@ const ConditionMenuStyled = styled.div`
   }
 `;
 
-const ConditionMenu = ({
+const WeatherFilterMenu = ({
   currentConditions,
-  selectedConditions,
-  selectCondition,
+  selectedFilters,
+  selectFilter,
 }: {
   currentConditions: WeatherIntervalsValues;
-  selectedConditions: string[];
-  selectCondition(c: string): void;
+  selectedFilters: string[];
+  selectFilter(c: string): void;
 }) => {
   const conditions = getConditions(currentConditions);
   return (
-    <ConditionMenuStyled>
+    <WeatherFilterMenuStyled>
       {Object.values(conditions).map(({ label, value, colorStyle, key }) => (
         <button
           className={classnames('label-value', {
-            [colorStyle]: selectedConditions.includes(key),
+            [colorStyle]: selectedFilters.includes(key),
           })}
           key={label}
-          onClick={() => selectCondition(key)}
+          onClick={() => selectFilter(key)}
         >
           <span>{label}</span>
           <span>{value}</span>
         </button>
       ))}
-    </ConditionMenuStyled>
+    </WeatherFilterMenuStyled>
   );
 };
 
 const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
-  const [selectedConditions, setSelectedConditions] = useState(['temperature', 'windSpeed']);
+  const [selectedFilters, setSelectedFilters] = useState(['temperature', 'windSpeed']);
 
   const data = useMemo(() => {
     return parseTimeLineData(weatherTimeLine?.intervals ?? []);
@@ -259,21 +259,21 @@ const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
     }
   }, [width]);
 
-  const selectCondition = (condition: string) => {
-    if (selectedConditions.includes(condition)) {
-      setSelectedConditions((prev) => prev.filter((c) => c !== condition));
+  const selectFilter = (condition: string) => {
+    if (selectedFilters.includes(condition)) {
+      setSelectedFilters((prev) => prev.filter((c) => c !== condition));
     } else {
-      setSelectedConditions((prev) => [...prev, condition]);
+      setSelectedFilters((prev) => [...prev, condition]);
     }
   };
 
   return (
     <WeatherChartStyled>
       <h3>WeatherChart</h3>
-      <ConditionMenu
+      <WeatherFilterMenu
         currentConditions={currentWeather as WeatherIntervalsValues}
-        selectedConditions={selectedConditions}
-        selectCondition={selectCondition}
+        selectedFilters={selectedFilters}
+        selectFilter={selectFilter}
       />
       <ResponsiveContainer width="100%" height="80%">
         <LineChart
@@ -292,7 +292,7 @@ const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
           <Tooltip />
           <Legend />
           <Brush dataKey="startTime" height={30} stroke="var(--orange)" endIndex={brushEndIndex} travellerWidth={5} />
-          {selectedConditions.map((k) => (
+          {selectedFilters.map((k) => (
             <Line key={k} type="monotone" dataKey={k} stroke={conditions[k].colorVar} strokeWidth={3} />
           ))}
           {/*<Line type="monotone" dataKey="temperature" stroke="#8884d8" strokeWidth={3} />*/}
