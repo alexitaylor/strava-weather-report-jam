@@ -44,5 +44,3 @@ const r = [];
 for (var i = 0; i < 50; i++) {
   r.push(mockIntervalValues());
 }
-
-console.log('r', r);

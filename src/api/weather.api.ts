@@ -41,7 +41,7 @@ const timesteps = [TIMESTEP.CURRENT, TIMESTEP.DAY, TIMESTEP.HOUR];
 // const now = moment.utc();
 const now = new Date();
 // const startTime = moment.utc(now).add(0, "minutes").toISOString();
-const startTime = formatISO(subHours(now, 6));
+// const startTime = formatISO(subHours(now, 6));
 // const endTime = moment.utc(now).add(1, "days").toISOString();
 const endTime = formatISO(addDays(now, 5));
 
@@ -57,7 +57,7 @@ const getTimelineParameters = (location: number[]) =>
       fields,
       units: UNITS,
       timesteps,
-      startTime,
+      // startTime,
       endTime,
       timezone,
     },
