@@ -1,4 +1,5 @@
 import { UserSettings, WeatherIntervalsValues } from '../models';
+import { isDefined } from '../utils';
 
 export interface ConditionScaleValues {
   value: string;
@@ -11,6 +12,7 @@ export interface ConditionScaleValues {
 // type ConditionScaleKey = 'low' | 'good' | 'high' | 'veryHigh' | 'extreme';
 
 export type IConditionScale = {
+  veryLow: ConditionScaleValues;
   low: ConditionScaleValues;
   good: ConditionScaleValues;
   high: ConditionScaleValues;
@@ -20,6 +22,13 @@ export type IConditionScale = {
 };
 
 export const ConditionScale: IConditionScale = {
+  veryLow: {
+    value: 'Very Low',
+    colorStyle: 'has-very-low-color',
+    bgStyle: 'has-very-low-bg',
+    colorVar: 'var(--teal-600)',
+    description: '',
+  },
   low: {
     value: 'Low',
     colorStyle: 'has-low-color',
@@ -29,7 +38,7 @@ export const ConditionScale: IConditionScale = {
   },
   good: {
     value: 'Good',
-    colorStyle: 'has-low-color',
+    colorStyle: 'has-moderate-color',
     bgStyle: 'has-moderate-bg',
     colorVar: 'var(--brand-success)',
     description: '',
@@ -65,11 +74,12 @@ export const ConditionScale: IConditionScale = {
 };
 
 export const ConditionIndexValue = {
-  low: 1,
-  good: 2,
-  high: 3,
-  veryHigh: 4,
-  extreme: 5,
+  veryLow: 1,
+  low: 2,
+  good: 3,
+  high: 4,
+  veryHigh: 5,
+  extreme: 6,
 };
 
 export const getUvConditionIndex = (uvIndex: number): number => {
@@ -96,7 +106,12 @@ export const getWeatherStatConditionIndex = ({
   high: number;
 }): number => {
   if (stat < low) {
-    return ConditionIndexValue.low;
+    const percentDecrease = Math.round(((low - stat) / low) * 100);
+    if (percentDecrease <= 10) {
+      return ConditionIndexValue.low;
+    } else {
+      return ConditionIndexValue.veryLow;
+    }
   } else if (stat >= low && stat <= high) {
     return ConditionIndexValue.good;
   } else if (stat > high) {
@@ -111,6 +126,28 @@ export const getWeatherStatConditionIndex = ({
   }
 
   return ConditionIndexValue.good;
+};
+
+export const getStatStyle = ({
+  stat = 0,
+  low = 0,
+  high = 0,
+}: {
+  stat?: number;
+  low?: number;
+  high?: number;
+}): string => {
+  if (!isDefined(stat) || !isDefined(low) || !isDefined(high)) {
+    return '';
+  }
+
+  const index = getWeatherStatConditionIndex({ stat, low, high });
+
+  const condition = Object.keys(ConditionIndexValue).filter(
+    (k) => ConditionIndexValue[k as keyof typeof ConditionIndexValue] === index
+  )[0];
+
+  return ConditionScale[condition as keyof typeof ConditionScale].colorStyle ?? ConditionScale.default.colorStyle;
 };
 
 type WeatherConditionKeys = 'temperature' | 'precipitationProbability' | 'rainAccumulation' | 'windSpeed';
@@ -129,22 +166,12 @@ export const calculateWeatherCondition = (
   userSettings: UserSettings
 ): ConditionScaleValues => {
   let totalConditionIndex = 0;
-  const conditions = [
-    'temperature',
-    'precipitationProbability',
-    'rainAccumulation',
-    'windSpeed',
-    'uvIndex',
-    'uvHealthConcern',
-  ];
+  // Disabling uvIndex in overall Condition score: 'uvIndex'.
+  const conditions = ['temperature', 'precipitationProbability', 'rainAccumulation', 'windSpeed', 'uvHealthConcern'];
 
   totalConditionIndex = conditions.reduce((total, condition) => {
     let conditionIndex;
     if (condition === 'uvIndex' || condition === 'uvHealthConcern') {
-      // Disabling uvIndex in overall Condition score.
-      if (condition === 'uvIndex') {
-        return total;
-      }
       conditionIndex = getUvConditionIndex(currentWeather[condition as keyof typeof currentWeather] as number);
     } else {
       // TODO maybe average precipitationProbability and rainAccumulation???

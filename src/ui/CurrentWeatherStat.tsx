@@ -6,8 +6,8 @@ import { DATE_FORMAT, UNITS } from '../constants';
 import { useCityContext } from '../contexts/CityContext';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { useWeatherContext, WEATHER_ACTIONS } from '../contexts/WeatherContext';
-import { WeatherIntervalsValues, WeatherTimelines } from '../models';
-import { calculateWeatherCondition, ConditionScale } from '../service';
+import { WeatherIntervalsValues } from '../models';
+import { calculateWeatherCondition, ConditionScale, getStatStyle } from '../service';
 import { getCompassDirection, getUvIndexValue, getWeatherCodes, isDefined } from '../utils';
 import Button from './Button/Button';
 import ButtonGroup from './Button/ButtonGroup';
@@ -51,25 +51,6 @@ const getUvIndexStyle = (uvIndex: string) =>
     ['Very High']: 'has-very-high-color',
     Extreme: 'has-extreme-color',
   }[uvIndex]);
-
-const getStatStyle = ({ stat, low, high }: { stat?: number; low?: number; high?: number }): string => {
-  if (!isDefined(stat) || !isDefined(low) || !isDefined(high)) {
-    return '';
-  }
-
-  // @ts-ignore
-  if (stat < low) {
-    return 'has-low-color';
-    // @ts-ignore
-  } else if (stat >= low && stat <= high) {
-    return 'has-moderate-color';
-    // @ts-ignore
-  } else if (stat > high) {
-    return 'has-extreme-color';
-  } else {
-    return '';
-  }
-};
 
 const CurrentWeatherStat = () => {
   const { userSettings } = useUserSettingsContext();
