@@ -1,14 +1,11 @@
 import classnames from 'classnames';
-import { useMemo } from 'react';
 import styled from 'styled-components';
 
-import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { useWeatherContext } from '../contexts/WeatherContext';
-import { WeatherIntervalsValues, WeatherTimelines } from '../models';
-import { calculateWeatherCondition, ConditionScale } from '../service';
+import { ConditionScale } from '../service';
 
 const ScaleLegendStyled = styled.div`
-  width: 500px;
+  width: 600px;
   .scale-legend {
     display: flex;
     flex-direction: row;

@@ -46,16 +46,15 @@ const TickLabel = styled.div`
 interface SegmentProps {
   index: number;
 }
-
+// --n40-steel
+// --y50-gold
+// --orange-dark
+// var(--brand-success)
+//     --tw-bg-opacity: 1;
+//     background-color: rgb(55 65 81/1);
 const Segment = styled.div<SegmentProps>`
   background: ${(props) =>
-    props.index === 0
-      ? 'var(--y50-gold)'
-      : props.index === 1
-      ? 'var(--brand-success)'
-      : props.index === 2
-      ? 'var(--orange-dark)'
-      : '#ff6050'};
+    props.index === 0 ? '#dddddd' : props.index === 1 ? '#0284c7' : props.index === 2 ? '#dddddd' : '#ff6050'};
   height: 100%;
 `;
 
@@ -64,8 +63,11 @@ interface HandleProps {
 }
 
 //background: #ff1a6b;
+// #0369a1
+// background: var(--brand-info);
+// border: 2px solid var(--n70-gravel);
 const Handle = styled.div<HandleProps>`
-  background: var(--brand-info);
+  background: #38bdf8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,7 +75,7 @@ const Handle = styled.div<HandleProps>`
   height: 1.7rem;
   padding: 0.2rem;
   border-radius: 100%;
-  border: 2px solid var(--n70-gravel);
+  border: 2px solid #164e63;
   font-size: 1rem;
   white-space: nowrap;
   color: white;
@@ -101,7 +103,6 @@ const RangeSlider = ({ label, lowValue = 20, highValue = 20, name, onChange }: P
     values,
     onChange: (v) => {
       setValues(v);
-      console.log('options', v);
       onChange?.(name as string, v);
     },
   });

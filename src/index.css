@@ -85,6 +85,7 @@ code {
   --emerald-700: #047857;
   --emerald-600: #16A34A;
   --orange-600: #EA580C;
+  --teal-600: #0d9488;
 
   /*Spacing*/
   --spacing-xxsmall: 4px;
@@ -103,6 +104,15 @@ code {
 .has-orange-bg {
   background-color: var(--orange) !important;
   color: var(--white) !important;
+}
+
+.has-very-low-color {
+  color: var(--teal-600) !important;
+}
+
+.has-very-low-bg {
+  background-color: var(--teal-600) !important;
+  color: var(--teal-600) !important;
 }
 
 .has-low-color {
