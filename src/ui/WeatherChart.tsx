@@ -10,7 +10,7 @@ import { WeatherIntervals, WeatherIntervalsValues, WeatherTimelines } from '../m
 import { getCompassDirection, getUvIndexValue, isDefined } from '../utils';
 
 const WeatherChartStyled = styled.div`
-  width: calc(100vw - 5rem);
+  width: calc(100vw - 10rem);
   height: 800px;
   //height: 100%;
   margin: 2rem 1rem;

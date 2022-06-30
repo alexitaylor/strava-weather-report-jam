@@ -5,6 +5,12 @@
   align-items: center;
   justify-content: center;
   color: var(--text-color);
+
+  /*width: 100%;*/
+  padding-right: calc(5rem * .5);
+  padding-left: calc(5rem * .5);
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .App-logo {

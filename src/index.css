@@ -107,12 +107,12 @@ code {
 }
 
 .has-very-low-color {
-  color: var(--teal-600) !important;
+  color: var(--emerald-700) !important;
 }
 
 .has-very-low-bg {
-  background-color: var(--teal-600) !important;
-  color: var(--teal-600) !important;
+  background-color: var(--emerald-700) !important;
+  color: var(--white) !important;
 }
 
 .has-low-color {
