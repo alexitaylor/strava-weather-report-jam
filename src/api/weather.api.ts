@@ -75,6 +75,7 @@ export const getTimeline = async ({
     console.log('FETCHING API');
     // pick the location, as a lat,long pair
     let location: number[] = [37.773972, -122.431297];
+    // 47.6062095,-122.3320708
     if (isDefined(longitude) && isDefined(latitude)) {
       // @ts-ignore
       location = [latitude, longitude];
