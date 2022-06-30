@@ -14,10 +14,10 @@ const WeatherChartStyled = styled.div`
   height: 800px;
   //height: 100%;
   margin: 2rem 1rem;
-  background: var(--n10-fog);
-  border-radius: 10px;
+  //background: var(--n10-fog);
+  //border-radius: 10px;
+  //box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   padding: 0.5rem;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
 `;
 
 const parseTimeLineData = (intervals: WeatherIntervals[]) => {
@@ -232,7 +232,8 @@ const WeatherFilterMenu = ({
 };
 
 const WeatherChart = ({ weatherTimeLine, currentWeather }: Props) => {
-  const [selectedFilters, setSelectedFilters] = useState(['temperature', 'windSpeed']);
+  // windSpeed
+  const [selectedFilters, setSelectedFilters] = useState(['temperature']);
 
   const data = useMemo(() => {
     return parseTimeLineData(weatherTimeLine?.intervals ?? []);
