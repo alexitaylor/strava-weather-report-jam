@@ -3,7 +3,7 @@ import { createContext, ReactNode, useContext, useMemo, useState } from 'react';
 import { UserSettings, UserSettingsState } from '../models';
 
 const initState = {
-  temperatureLow: 40,
+  temperatureLow: 60,
   temperatureHigh: 80, // 80
   precipitationProbabilityLow: 0,
   precipitationProbabilityHigh: 50,

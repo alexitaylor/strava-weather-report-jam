@@ -7,8 +7,8 @@ import { useCityContext } from '../contexts/CityContext';
 import { useUserSettingsContext } from '../contexts/UserSettingsContext';
 import { useWeatherContext, WEATHER_ACTIONS } from '../contexts/WeatherContext';
 import { WeatherIntervalsValues } from '../models';
-import { calculateWeatherCondition, ConditionScale, getStatStyle } from '../service';
-import { getCompassDirection, getUvIndexValue, getWeatherCodes, isDefined } from '../utils';
+import { calculateWeatherCondition, ConditionScaleV2, getStatStyle } from '../service';
+import { getCompassDirection, getUvIndexValue, getWeatherCodes } from '../utils';
 import Button from './Button/Button';
 import ButtonGroup from './Button/ButtonGroup';
 import CurrentWeatherStatStyled from './CurrentWeatherStat.styled';
@@ -80,7 +80,7 @@ const CurrentWeatherStat = () => {
       return calculateWeatherCondition(currentWeather, userSettings);
     }
 
-    return ConditionScale.default;
+    return ConditionScaleV2.default;
   }, [currentWeather, userSettings]);
 
   useEffect(() => {
@@ -137,6 +137,7 @@ const CurrentWeatherStat = () => {
                 stat: currentWeather?.temperatureApparent,
                 low: userSettings?.temperatureLow,
                 high: userSettings?.temperatureHigh,
+                condition: 'temperature',
               })}
             />
             <Stat label={'Condition'} value={weatherCodeDay} />
@@ -149,6 +150,7 @@ const CurrentWeatherStat = () => {
                 stat: currentWeather?.precipitationProbability,
                 low: userSettings?.precipitationProbabilityLow,
                 high: userSettings?.precipitationProbabilityHigh,
+                condition: 'precipitationProbability',
               })}
             />
             <Stat
@@ -158,6 +160,7 @@ const CurrentWeatherStat = () => {
                 stat: currentWeather?.rainAccumulation,
                 low: userSettings?.rainAccumulationLow,
                 high: userSettings?.rainAccumulationHigh,
+                condition: 'rainAccumulation',
               })}
             />
           </div>
@@ -173,6 +176,7 @@ const CurrentWeatherStat = () => {
                 stat: currentWeather?.windSpeed,
                 low: userSettings?.windSpeedLow,
                 high: userSettings?.windSpeedHigh,
+                condition: 'windSpeed',
               })}
             />
             <Stat label={'Wind Direction'} value={windDirection} />

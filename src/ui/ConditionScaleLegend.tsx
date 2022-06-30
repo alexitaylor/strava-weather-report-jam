@@ -2,7 +2,7 @@ import classnames from 'classnames';
 import styled from 'styled-components';
 
 import { useWeatherContext } from '../contexts/WeatherContext';
-import { ConditionScale } from '../service';
+import { ConditionScaleV2 } from '../service';
 
 const ScaleLegendStyled = styled.div`
   width: 600px;
@@ -40,7 +40,7 @@ const ConditionScaleLegend = () => {
     <ScaleLegendStyled>
       <h3>Weather Condition Scale</h3>
       <div className="scale-legend">
-        {Object.values(ConditionScale)
+        {Object.values(ConditionScaleV2)
           .filter((c) => c.value !== 'default')
           .map(({ value, bgStyle }) => (
             <div className="condition" key={value}>

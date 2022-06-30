@@ -1,7 +1,7 @@
 import { createContext, Dispatch, ReactNode, useContext, useMemo, useReducer } from 'react';
 
 import { WeatherIntervalsValues, WeatherTimelines } from '../models';
-import { calculateWeatherCondition, ConditionScale, ConditionScaleValues } from '../service';
+import { calculateWeatherCondition, ConditionScaleV2, ConditionScaleValues } from '../service';
 import { useUserSettingsContext } from './UserSettingsContext';
 
 // TODO move to separate files: actions, reducer...
@@ -83,7 +83,7 @@ export const WeatherContextProvider = ({ children }: { children: ReactNode }) =>
       return calculateWeatherCondition(state.currentWeather, userSettings);
     }
 
-    return ConditionScale.default;
+    return ConditionScaleV2.default;
   }, [state?.currentWeather, userSettings]);
 
   const providerState = useMemo(
